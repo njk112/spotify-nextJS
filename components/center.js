@@ -2,7 +2,8 @@ import { useSession } from "next-auth/react";
 import { ChevronDownIcon } from "@heroicons/react/outline";
 import { useEffect, useState } from "react";
 import { shuffle } from "lodash";
-
+import { useQuery } from "@apollo/client";
+import { GET_PLAYLIST_ID } from "../graphql/reactivities/playlistVariables";
 const colorArr = [
 	"from-indigo-500",
 	"from-blue-500",
@@ -16,6 +17,7 @@ const colorArr = [
 function Center() {
 	const { data: session } = useSession();
 	const [color, setColor] = useState(null);
+	const { data } = useQuery(GET_PLAYLIST_ID);
 
 	useEffect(() => {
 		setColor(shuffle(colorArr).pop());
@@ -41,7 +43,7 @@ function Center() {
 				className={`flex items-end space-x-7 
 				bg-gradient-to-b to-black ${color} h-80 text-white padding-8`}
 			>
-				<p>hello</p>
+				<p>{data.playlistIdState}</p>
 			</section>
 		</div>
 	);

@@ -1,13 +1,13 @@
 import { InMemoryCache } from "@apollo/client";
-import { playlistVariable } from "./reactivities/playlistVariable";
+import { playlistIdState } from "./reactivities/playlistVariables";
 
 export default new InMemoryCache({
 	typePolicies: {
 		Query: {
 			fields: {
-				playlistReactivity: {
+				playlistIdState: {
 					read() {
-						return playlistReactivity();
+						return playlistIdState();
 					},
 				},
 			},

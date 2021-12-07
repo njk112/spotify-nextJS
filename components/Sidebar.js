@@ -10,10 +10,16 @@ import {
 import { signOut, useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import useSpotify from "../hooks/useSpotify";
+import { useQuery } from "@apollo/client";
+import {
+	playlistIdState,
+	GET_PLAYLIST_ID,
+} from "../graphql/reactivities/playlistVariables";
 
 function Sidebar() {
 	const { data: session, status } = useSession();
 	const [playlists, setPlaylists] = useState([]);
+	const { data } = useQuery(GET_PLAYLIST_ID);
 	const spotifyAPI = useSpotify();
 
 	useEffect(async () => {
@@ -60,7 +66,11 @@ function Sidebar() {
 				</button>
 				<hr className="border-t-[0.1px] border-gray-900" />
 				{playlists.map((playlist) => (
-					<p key={playlist.id} className="cursor-pointer hover:text-white">
+					<p
+						key={playlist.id}
+						className="cursor-pointer hover:text-white"
+						onClick={() => playlistIdState(playlist.id)}
+					>
 						{playlist.name}
 					</p>
 				))}

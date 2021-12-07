@@ -51,7 +51,7 @@ export default NextAuth({
 				};
 			}
 			// If the previous token hasn't expired yet login
-			if (DataTransfer.now() < token.accessTokenExpires) {
+			if (Date.now() < token.accessTokenExpires) {
 				console.log("TOKEN EXISTS");
 				return token;
 			}

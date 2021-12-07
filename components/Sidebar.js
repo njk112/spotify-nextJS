@@ -22,9 +22,13 @@ function Sidebar() {
 	const { data } = useQuery(GET_PLAYLIST_ID);
 	const spotifyAPI = useSpotify();
 
-	useEffect(async () => {
-		if (spotifyAPI.getAccessToken()) {
+	useEffect(() => {
+		async function getUserPlaylists() {
 			const data = await spotifyAPI.getUserPlaylists();
+			return data;
+		}
+		if (spotifyAPI.getAccessToken()) {
+			const data = getUserPlaylists();
 			setPlaylists(data.body.items);
 		}
 	}, [session, spotifyAPI]);

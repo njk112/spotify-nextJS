@@ -7,7 +7,11 @@ export async function middleware(req) {
 
 	const { pathname } = req.nextUrl;
 	// If token exists user can access pages
-	if (pathname.includes("/api/auth") || token) {
+	if (
+		pathname.includes("/api/auth") ||
+		token ||
+		pathname.includes("/images/spotifyLogo.png")
+	) {
 		return NextResponse.next();
 	}
 	// No token -> go back to login page

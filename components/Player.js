@@ -1,6 +1,10 @@
 import { useSession } from "next-auth/react";
 import useSpotify from "../hooks/useSpotify";
-import { GET_SONG, isPlaying } from "../graphql/reactivities/songReactivites";
+import {
+	GET_SONG,
+	isPlaying,
+	currentTrackIdState,
+} from "../graphql/reactivities/songReactivites";
 import { useQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
 import useSongInfo from "../hooks/useSongInfo";

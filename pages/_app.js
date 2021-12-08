@@ -7,7 +7,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
 	return (
 		<SessionProvider session={session}>
 			<ApolloProvider client={client}>
-				<Component {...pageProps} />;
+				<Component {...pageProps} />
 			</ApolloProvider>
 		</SessionProvider>
 	);

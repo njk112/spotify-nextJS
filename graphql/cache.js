@@ -1,5 +1,10 @@
 import { InMemoryCache } from "@apollo/client";
-import { playlistIdState } from "./reactivities/playlistVariables";
+import {
+	playlistIdState,
+	playlistState,
+} from "./reactivities/playlistVariables";
+
+import { currentTrackIdState, isPlaying } from "./reactivities/songReactivites";
 
 export default new InMemoryCache({
 	typePolicies: {
@@ -8,6 +13,21 @@ export default new InMemoryCache({
 				playlistIdState: {
 					read() {
 						return playlistIdState();
+					},
+				},
+				playlistState: {
+					read() {
+						return playlistState();
+					},
+				},
+				currentTrackIdState: {
+					read() {
+						return currentTrackIdState();
+					},
+				},
+				isPlaying: {
+					read() {
+						return isPlaying();
 					},
 				},
 			},

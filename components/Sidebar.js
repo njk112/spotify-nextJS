@@ -19,17 +19,16 @@ import {
 function Sidebar() {
 	const { data: session, status } = useSession();
 	const [playlists, setPlaylists] = useState([]);
-	const { data } = useQuery(GET_PLAYLIST_ID);
 	const spotifyAPI = useSpotify();
 
 	useEffect(() => {
 		async function getUserPlaylists() {
 			const data = await spotifyAPI.getUserPlaylists();
+			setPlaylists(data.body?.items);
 			return data;
 		}
 		if (spotifyAPI.getAccessToken()) {
-			const data = getUserPlaylists();
-			setPlaylists(data.body.items);
+			getUserPlaylists();
 		}
 	}, [session, spotifyAPI]);
 
@@ -69,7 +68,7 @@ function Sidebar() {
 					<p>Your episodes</p>
 				</button>
 				<hr className="border-t-[0.1px] border-gray-900" />
-				{playlists.map((playlist) => (
+				{playlists?.map((playlist) => (
 					<p
 						key={playlist.id}
 						className="cursor-pointer hover:text-white"

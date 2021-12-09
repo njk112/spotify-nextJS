@@ -4,6 +4,7 @@ import {
 	GET_SONG,
 	isPlaying,
 	currentTrackIdState,
+	changedSong,
 } from "../graphql/reactivities/songReactivites";
 import { useQuery } from "@apollo/client";
 import { useCallback, useEffect, useState } from "react";
@@ -23,35 +24,78 @@ import { debounce } from "lodash";
 function Player() {
 	const spotifyAPI = useSpotify();
 	const { data } = useQuery(GET_SONG);
-	console.log(data);
-	const { currentTrackIdState: currentTrack, isPlaying: playing } = data;
+	const {
+		currentTrackIdState: currentTrack,
+		isPlaying: playing,
+		changedSong: songHasChanged,
+	} = data;
 	const { data: session } = useSession();
 	const songInfo = useSongInfo();
 	const [volume, setVolume] = useState(50);
 
 	const handlePlayPause = async () => {
-		const currentPlaying = await spotifyAPI.getMyCurrentPlaybackState();
-		console.log("apiIsPlaying");
-		console.log(currentPlaying);
-		if (currentPlaying.body?.is_playing) {
-			spotifyAPI.pause();
-			isPlaying(false);
-		} else {
-			spotifyAPI.play();
-			isPlaying(true);
+		try {
+			const currentPlaying = await spotifyAPI.getMyCurrentPlaybackState();
+			if (currentPlaying.body?.is_playing) {
+				spotifyAPI.pause();
+				isPlaying(false);
+			} else {
+				spotifyAPI.play();
+				isPlaying(true);
+			}
+		} catch (err) {
+			console.error(err);
 		}
 	};
+
+	const handleNext = async () => {
+		try {
+			await spotifyAPI.skipToNext();
+			changedSong(!songHasChanged);
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
+	const handlePrevious = async () => {
+		try {
+			spotifyAPI.skipToPrevious();
+			changedSong(!songHasChanged);
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
+	const debounceAdjustVolume = useCallback(
+		debounce((volume) => {
+			try {
+				spotifyAPI.setVolume(volume);
+			} catch (err) {
+				console.error(err);
+			}
+		}, 500),
+		[]
+	);
 
 	useEffect(() => {
 		async function fetchCurrentsong() {
 			if (!songInfo) {
-				const currentPlayingTrack = await spotifyAPI.getMyCurrentPlayingTrack();
-				console.log("Now playing: ", currentPlayingTrack?.body?.item);
-				if (currentPlayingTrack?.body?.item)
-					currentTrackIdState(currentPlayingTrack.body.item.id);
+				try {
+					const currentPlayingTrack =
+						await spotifyAPI.getMyCurrentPlayingTrack();
+					console.log("Now playing: ", currentPlayingTrack?.body?.item);
+					if (currentPlayingTrack?.body?.item)
+						currentTrackIdState(currentPlayingTrack.body.item.id);
+				} catch (err) {
+					console.error(err);
+				}
 
-				const currentPlaying = await spotifyAPI.getMyCurrentPlaybackState();
-				if (currentPlaying.body?.is_playing === true) isPlaying(true);
+				try {
+					const currentPlaying = await spotifyAPI.getMyCurrentPlaybackState();
+					if (currentPlaying.body?.is_playing === true) isPlaying(true);
+				} catch (err) {
+					console.log(err);
+				}
 			}
 		}
 		if (spotifyAPI.getAccessToken() && !currentTrack) {
@@ -65,17 +109,6 @@ function Player() {
 			debounceAdjustVolume(volume);
 		}
 	}, [debounceAdjustVolume, volume]);
-
-	const debounceAdjustVolume = useCallback(
-		debounce((volume) => {
-			try {
-				spotifyAPI.setVolume(volume);
-			} catch (err) {
-				console.error(err);
-			}
-		}, 500),
-		[]
-	);
 
 	return (
 		<div className="h-24 bg-gradient-to-b from-black to-gray-900 text-white grid grid-cols-3 text-xs md:text-base px-2 md:px-8">
@@ -95,19 +128,13 @@ function Player() {
 			{/* center */}
 			<div className="flex items-center justify-evenly">
 				<SwitchHorizontalIcon className="button" />
-				<RewindIcon
-					className="button"
-					onClick={() => spotifyAPI.skipToPrevious()}
-				/>
+				<RewindIcon className="button" onClick={handlePrevious} />
 				{playing ? (
 					<PauseIcon className="button w-10 h-10" onClick={handlePlayPause} />
 				) : (
 					<PlayIcon className="button w-10 h-10" onClick={handlePlayPause} />
 				)}
-				<FastForwardIcon
-					className="button"
-					onClick={() => spotifyAPI.skipToNext()}
-				/>
+				<FastForwardIcon className="button" onClick={handleNext} />
 				<ReplyIcon className="button" />
 			</div>
 			{/* right side */}

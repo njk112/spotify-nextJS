@@ -1,7 +1,5 @@
-import { useQuery } from "@apollo/client";
 import {
 	currentTrackIdState,
-	GET_SONG,
 	isPlaying,
 } from "../graphql/reactivities/songReactivites";
 import useSpotify from "../hooks/useSpotify";
@@ -9,13 +7,15 @@ import { millisToMinAndS } from "../lib/time";
 
 function Song({ order, track }) {
 	const spotifyAPI = useSpotify();
-	const { data } = useQuery(GET_SONG);
-	const { currentTrackIdState: currentTrack, isPlaying: playing } = data;
 
 	const playSong = () => {
 		currentTrackIdState(track.track.id);
 		isPlaying(true);
-		spotifyAPI.play({ uris: [track.track.uri] });
+		try {
+			spotifyAPI.play({ uris: [track.track.uri] });
+		} catch (err) {
+			console.log(err);
+		}
 	};
 
 	return (

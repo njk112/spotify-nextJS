@@ -6,7 +6,7 @@ import {
 	HeartIcon,
 	RssIcon,
 } from "@heroicons/react/outline";
-import { signOut, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import useSpotify from "../hooks/useSpotify";
 import { playlistIdState } from "../graphql/reactivities/playlistVariables";
@@ -31,7 +31,7 @@ function Sidebar() {
 		<div
 			className="text-gray-500 p-5 text-xs lg:text-sm border-r
 		 border-gray-900 overflow-y-scroll h-screen scrollbar-hide
-		  sm:max-w-[12rem] lg:max-w-[15rem] hidden md:inline-flex pb-36"
+		  sm:max-w-[12rem] lg:max-w-[15rem] hidden md:inline-flex pb-36  overscroll-none"
 		>
 			<div className="space-y-4">
 				<button className="flex items-center space-x-2 hover:text-white">

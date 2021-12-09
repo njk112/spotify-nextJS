@@ -27,4 +27,14 @@ yarn create next-app --example with-tailwindcss with-tailwindcss-app
 ```
 
 Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+
 # spotify-nextJS
+
+1. NextJS.12
+2. Next.JS Auth
+3. Next.JS Middleware
+4. Debouncing
+5. OAuth & JWT Tokens
+6. Tailwind
+7. Apollo
+8. Custom Hooks

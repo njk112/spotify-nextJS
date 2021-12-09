@@ -4,7 +4,11 @@ import {
 	playlistState,
 } from "./reactivities/playlistVariables";
 
-import { currentTrackIdState, isPlaying } from "./reactivities/songReactivites";
+import {
+	currentTrackIdState,
+	isPlaying,
+	changedSong,
+} from "./reactivities/songReactivites";
 
 export default new InMemoryCache({
 	typePolicies: {
@@ -28,6 +32,11 @@ export default new InMemoryCache({
 				isPlaying: {
 					read() {
 						return isPlaying();
+					},
+				},
+				changedSong: {
+					read() {
+						return changedSong();
 					},
 				},
 			},

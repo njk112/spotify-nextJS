@@ -29,7 +29,7 @@ function Center() {
 
 	useEffect(() => {
 		setColor(shuffle(colorArr).pop());
-	}, []);
+	}, [playListId]);
 
 	useEffect(() => {
 		async function setCurrentPlaylist() {
@@ -44,11 +44,10 @@ function Center() {
 		if (spotifyAPI.getAccessToken()) {
 			setCurrentPlaylist();
 		}
-	}, [spotifyAPI, playListId]);
-	console.log(currentPlaylist);
+	}, [spotifyAPI, playListId, currentPlaylist]);
 
 	return (
-		<div className="flex-grow h-screen overflow-y-scroll scrollbar-hide">
+		<div className="flex-grow h-screen overflow-y-scroll scrollbar-hide overscroll-none">
 			<header className="absolute top-5 right-8">
 				<div
 					className="flex items-center bg-black text-white space-x-3 opacity-90

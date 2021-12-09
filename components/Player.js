@@ -8,7 +8,14 @@ import {
 import { useQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
 import useSongInfo from "../hooks/useSongInfo";
-import { SwitchHorizontalIcon } from "@heroicons/react/outline";
+import {
+	SwitchHorizontalIcon,
+	ReplyIcon,
+	RewindIcon,
+	PauseIcon,
+	PlayIcon,
+	FastForwardIcon,
+} from "@heroicons/react/solid";
 
 function Player() {
 	const spotifyAPI = useSpotify();
@@ -19,12 +26,27 @@ function Player() {
 	const songInfo = useSongInfo();
 	const [volume, setVolume] = useState(50);
 
+	const handlePlayPause = async () => {
+		const currentPlaying = await spotifyAPI.getMyCurrentPlaybackState();
+		console.log("apiIsPlaying");
+		console.log(currentPlaying);
+		if (currentPlaying.body?.is_playing) {
+			spotifyAPI.pause();
+			isPlaying(false);
+		} else {
+			spotifyAPI.play();
+			isPlaying(true);
+		}
+	};
+
 	useEffect(() => {
 		async function fetchCurrentsong() {
 			if (!songInfo) {
-				const data = await spotifyAPI.getMyCurrentPlayingTrack();
-				console.log("Now playing: ", data?.body?.item);
-				if (data?.body?.item) currentTrackIdState(data.body.item.id);
+				const currentPlayingTrack = await spotifyAPI.getMyCurrentPlayingTrack();
+				console.log("Now playing: ", currentPlayingTrack?.body?.item);
+				if (currentPlayingTrack?.body?.item)
+					currentTrackIdState(currentPlayingTrack.body.item.id);
+
 				const currentPlaying = await spotifyAPI.getMyCurrentPlaybackState();
 				if (currentPlaying.body?.is_playing === true) isPlaying(true);
 			}
@@ -51,7 +73,23 @@ function Player() {
 				</div>
 			</div>
 			{/* center */}
-			<SwitchHorizontalIcon className="button" />
+			<div className="flex items-center justify-evenly">
+				<SwitchHorizontalIcon className="button" />
+				<RewindIcon
+					className="button"
+					onClick={() => spotifyAPI.skipToPrevious()}
+				/>
+				{playing ? (
+					<PauseIcon className="button w-10 h-10" onClick={handlePlayPause} />
+				) : (
+					<PlayIcon className="button w-10 h-10" onClick={handlePlayPause} />
+				)}
+				<FastForwardIcon
+					className="button"
+					onClick={() => spotifyAPI.skipToNext()}
+				/>
+				<ReplyIcon className="button" />
+			</div>
 		</div>
 	);
 }

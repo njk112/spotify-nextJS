@@ -10,6 +10,8 @@ import {
 	changedSong,
 } from "./reactivities/songReactivites";
 
+import { centerTopPartVisible } from "./reactivities/colorReactivities";
+
 export default new InMemoryCache({
 	typePolicies: {
 		Query: {
@@ -37,6 +39,11 @@ export default new InMemoryCache({
 				changedSong: {
 					read() {
 						return changedSong();
+					},
+				},
+				centerTopPartVisible: {
+					read() {
+						return centerTopPartVisible();
 					},
 				},
 			},

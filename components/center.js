@@ -17,23 +17,15 @@ const colorArr = [
 	"from-pink-500",
 	"from-purple-500",
 ];
+import { useInView } from "react-intersection-observer";
+import { centerTopPartVisible } from "../graphql/reactivities/colorReactivities";
 
 function Center() {
 	const spotifyAPI = useSpotify();
 	const [color, setColor] = useState(null);
 	const { data } = useQuery(GET_PLAYLIST_ID);
 	const { playlistIdState: playListId, playlistState: currentPlaylist } = data;
-
-	const handleScroll = (e) => {
-		if (e.currentTarget.scrollTop === 0) {
-			console.log("at the top");
-		} else {
-			console.log(e.target.scrollHeight);
-		}
-		if (e.target.scrollHeight - e.target.scrollTop === e.target.clientHeight) {
-			console.log("at the bottom");
-		}
-	};
+	const { ref, inView } = useInView({});
 
 	useEffect(() => {
 		setColor(shuffle(colorArr).pop());
@@ -54,10 +46,14 @@ function Center() {
 		}
 	}, [spotifyAPI, playListId, currentPlaylist]);
 
+	useEffect(() => {
+		centerTopPartVisible(inView);
+	}, [inView, ref]);
+
 	return (
 		<div
 			className="flex-grow h-screen overflow-y-scroll scrollbar-hide overscroll-none"
-			onScroll={handleScroll}
+			onScroll={(e) => handleScroll(e)}
 		>
 			<header className="absolute top-5 right-8">
 				<UserProfile />
@@ -65,6 +61,7 @@ function Center() {
 			<section
 				className={`flex items-end space-x-7 
 				bg-gradient-to-b to-black ${color} h-80 text-white p-8`}
+				ref={ref}
 			>
 				{/* eslint-disable-next-line @next/next/no-img-element */}
 				<img

@@ -1,15 +1,13 @@
-import { useSession, signOut } from "next-auth/react";
-import { ChevronDownIcon } from "@heroicons/react/outline";
 import { useEffect, useState } from "react";
 import { shuffle } from "lodash";
 import { useQuery } from "@apollo/client";
-
 import {
 	GET_PLAYLIST_ID,
 	playlistState,
 } from "../graphql/reactivities/playlistVariables";
 import useSpotify from "../hooks/useSpotify";
 import Songs from "./Songs";
+import UserProfile from "./UserProfile";
 const colorArr = [
 	"from-indigo-500",
 	"from-blue-500",
@@ -21,11 +19,21 @@ const colorArr = [
 ];
 
 function Center() {
-	const { data: session } = useSession();
 	const spotifyAPI = useSpotify();
 	const [color, setColor] = useState(null);
 	const { data } = useQuery(GET_PLAYLIST_ID);
 	const { playlistIdState: playListId, playlistState: currentPlaylist } = data;
+
+	const handleScroll = (e) => {
+		if (e.currentTarget.scrollTop === 0) {
+			console.log("at the top");
+		} else {
+			console.log(e.target.scrollHeight);
+		}
+		if (e.target.scrollHeight - e.target.scrollTop === e.target.clientHeight) {
+			console.log("at the bottom");
+		}
+	};
 
 	useEffect(() => {
 		setColor(shuffle(colorArr).pop());
@@ -47,22 +55,12 @@ function Center() {
 	}, [spotifyAPI, playListId, currentPlaylist]);
 
 	return (
-		<div className="flex-grow h-screen overflow-y-scroll scrollbar-hide overscroll-none">
+		<div
+			className="flex-grow h-screen overflow-y-scroll scrollbar-hide overscroll-none"
+			onScroll={handleScroll}
+		>
 			<header className="absolute top-5 right-8">
-				<div
-					className="flex items-center bg-black text-white space-x-3 opacity-90
-				 hover:opacity-80 cursor-pointer rounded-full p-1 pr-2"
-					onClick={signOut}
-				>
-					{/* eslint-disable-next-line @next/next/no-img-element */}
-					<img
-						src={session?.user.image}
-						alt="User"
-						className="rounded-full w-10 h-10"
-					/>
-					<h2>{session?.user.name}</h2>
-					<ChevronDownIcon className="h-5 w-5" />
-				</div>
+				<UserProfile />
 			</header>
 			<section
 				className={`flex items-end space-x-7 

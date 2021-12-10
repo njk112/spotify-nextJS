@@ -51,7 +51,7 @@ function Center() {
 	}, [inView, ref]);
 
 	return (
-		<div className="flex-grow h-screen overflow-y-scroll scrollbar-hide overscroll-none">
+		<div className="flex-grow h-screen overflow-y-scroll scrollbar-hide overscroll-none ">
 			<header className="absolute top-5 right-8">
 				<UserProfile />
 			</header>

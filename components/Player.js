@@ -20,6 +20,7 @@ import {
 	VolumeOffIcon,
 } from "@heroicons/react/solid";
 import { debounce } from "lodash";
+import useActiveDevice from "../hooks/useActiveDevice";
 
 function Player() {
 	const spotifyAPI = useSpotify();
@@ -31,6 +32,12 @@ function Player() {
 	} = data;
 	const { data: session } = useSession();
 	const songInfo = useSongInfo();
+	const deviceInfo = useActiveDevice();
+
+	const [currentDevice, setCurrentDevice] = useState({
+		devices: [],
+		is_active: false,
+	});
 	const [volume, setVolume] = useState(50);
 
 	const handlePlayPause = async () => {
@@ -98,17 +105,37 @@ function Player() {
 				}
 			}
 		}
+
 		if (spotifyAPI.getAccessToken() && !currentTrack) {
 			fetchCurrentsong();
-			setVolume(50);
 		}
 	}, [currentTrack, spotifyAPI, session, songInfo]);
 
 	useEffect(() => {
-		if (volume > 0 && volume < 100) {
-			debounceAdjustVolume(volume);
+		function checkActiveDevices() {
+			const activeDevices = deviceInfo?.body?.devices?.filter(
+				(device) => device.is_active === true
+			);
+
+			if (activeDevices?.length > 0) {
+				let deviceObj = {};
+				deviceObj.devices = activeDevices[0];
+				deviceObj.is_active = true;
+				setCurrentDevice(deviceObj);
+				if (deviceObj.devices?.volume_percent)
+					setVolume(deviceObj.devices.volume_percent);
+			}
 		}
-	}, [debounceAdjustVolume, volume]);
+		checkActiveDevices();
+	}, [deviceInfo]);
+
+	useEffect(() => {
+		if (currentDevice.is_active) {
+			if (volume > 0 && volume < 100) {
+				debounceAdjustVolume(volume);
+			}
+		}
+	}, [currentDevice, debounceAdjustVolume, deviceInfo, volume]);
 
 	return (
 		<div className="h-24 bg-gradient-to-b from-black to-gray-900 text-white grid grid-cols-3 text-xs md:text-base px-2 md:px-8">
@@ -148,7 +175,7 @@ function Player() {
 					min={0}
 					max={100}
 					value={volume}
-					className="w-14 md:w-28"
+					className="w-14 md:w-28 input:bg-black"
 					onChange={(e) => setVolume(Number(e.target.value))}
 				/>
 				<VolumeUpIcon

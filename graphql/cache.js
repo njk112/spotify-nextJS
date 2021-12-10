@@ -2,15 +2,15 @@ import { InMemoryCache } from "@apollo/client";
 import {
 	playlistIdState,
 	playlistState,
-} from "./reactivities/playlistVariables";
+} from "@reactivities/playlistVariables";
 
 import {
 	currentTrackIdState,
 	isPlaying,
 	changedSong,
-} from "./reactivities/songReactivites";
+} from "@reactivities/songReactivites";
 
-import { centerTopPartVisible } from "./reactivities/colorReactivities";
+import { centerTopPartVisible } from "@reactivities/colorReactivities";
 
 export default new InMemoryCache({
 	typePolicies: {

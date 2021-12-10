@@ -1,5 +1,5 @@
-import useSpotify from "../hooks/useSpotify";
-import { GET_SONG, changedSong } from "../graphql/reactivities/songReactivites";
+import useSpotify from "@hooks/useSpotify";
+import { GET_SONG } from "../graphql/reactivities/songReactivites";
 import { useQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
 function useSongInfo() {

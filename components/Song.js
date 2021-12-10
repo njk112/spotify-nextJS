@@ -1,9 +1,6 @@
-import {
-	currentTrackIdState,
-	isPlaying,
-} from "../graphql/reactivities/songReactivites";
-import useSpotify from "../hooks/useSpotify";
-import { millisToMinAndS } from "../lib/time";
+import { currentTrackIdState, isPlaying } from "@reactivities/songReactivites";
+import useSpotify from "@hooks/useSpotify";
+import { millisToMinAndS } from "@lib/time";
 
 function Song({ order, track }) {
 	const spotifyAPI = useSpotify();

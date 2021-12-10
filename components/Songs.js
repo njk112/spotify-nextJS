@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client";
-import { GET_PLAYLIST_ID } from "../graphql/reactivities/playlistVariables";
+import { GET_PLAYLIST_ID } from "@reactivities/playlistVariables";
 import Song from "./Song";
 function Songs() {
 	const { data } = useQuery(GET_PLAYLIST_ID);

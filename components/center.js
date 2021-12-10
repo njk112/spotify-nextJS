@@ -4,8 +4,8 @@ import { useQuery } from "@apollo/client";
 import {
 	GET_PLAYLIST_ID,
 	playlistState,
-} from "../graphql/reactivities/playlistVariables";
-import useSpotify from "../hooks/useSpotify";
+} from "@reactivities/playlistVariables";
+import useSpotify from "@hooks/useSpotify";
 import Songs from "./Songs";
 import UserProfile from "./UserProfile";
 const colorArr = [
@@ -18,7 +18,7 @@ const colorArr = [
 	"from-purple-500",
 ];
 import { useInView } from "react-intersection-observer";
-import { centerTopPartVisible } from "../graphql/reactivities/colorReactivities";
+import { centerTopPartVisible } from "@reactivities/colorReactivities";
 
 function Center() {
 	const spotifyAPI = useSpotify();

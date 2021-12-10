@@ -1,14 +1,14 @@
 import { useSession } from "next-auth/react";
-import useSpotify from "../hooks/useSpotify";
+import useSpotify from "@hooks/useSpotify";
 import {
 	GET_SONG,
 	isPlaying,
 	currentTrackIdState,
 	changedSong,
-} from "../graphql/reactivities/songReactivites";
+} from "@reactivities/songReactivites";
 import { useQuery } from "@apollo/client";
 import { useCallback, useEffect, useState } from "react";
-import useSongInfo from "../hooks/useSongInfo";
+import useSongInfo from "@hooks/useSongInfo";
 import {
 	SwitchHorizontalIcon,
 	ReplyIcon,
@@ -20,7 +20,7 @@ import {
 	VolumeOffIcon,
 } from "@heroicons/react/solid";
 import { debounce } from "lodash";
-import useActiveDevice from "../hooks/useActiveDevice";
+import useActiveDevice from "@hooks/useActiveDevice";
 
 function Player() {
 	const spotifyAPI = useSpotify();

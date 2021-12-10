@@ -8,8 +8,8 @@ import {
 } from "@heroicons/react/outline";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
-import useSpotify from "../hooks/useSpotify";
-import { playlistIdState } from "../graphql/reactivities/playlistVariables";
+import useSpotify from "@hooks/useSpotify";
+import { playlistIdState } from "@reactivities/playlistVariables";
 
 function Sidebar() {
 	const { data: session, status } = useSession();

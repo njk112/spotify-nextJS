@@ -1,4 +1,4 @@
-import useSpotify from "../hooks/useSpotify";
+import useSpotify from "@hooks/useSpotify";
 import { useEffect, useState } from "react";
 function useActiveDevice() {
 	const spotifyAPI = useSpotify();

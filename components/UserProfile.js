@@ -4,8 +4,8 @@ import { ChevronDownIcon } from "@heroicons/react/outline";
 import { useSession } from "next-auth/react";
 import { signOut } from "next-auth/react";
 import { useEffect, useState } from "react";
-import { GET_COLORS } from "../graphql/reactivities/colorReactivities";
-import colorOptions from "../styles/stylingOptions";
+import { GET_COLORS } from "@reactivities/colorReactivities";
+import colorOptions from "@styles/stylingOptions";
 
 function UserProfile() {
 	const { data: session } = useSession();

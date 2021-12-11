@@ -39,7 +39,7 @@ export default function (plop) {
 	});
 
 	plop.setGenerator("reactivity", {
-		description: '🔥 Generates new Apollo Reactivity 🔥',
+		description: '🐸 Generates new Apollo Reactivity 🐸',
 		prompts: [
 		  {
 			type: 'input',
@@ -71,6 +71,45 @@ export default function (plop) {
                 path: 'jsconfig.json',
                 pattern: /(\/\/ INDIVIDUAL REACTIVITIES)/g,
                 template: '\t\t\t"@{{name}}Reactivity": ["graphql/reactivities/{{name}}/{{name}}Reactivity.js"],\n$1',
+                type: 'modify',
+            },
+		  ]
+	});
+
+
+	plop.setGenerator("hook", {
+		description: '🪝 Generates new React Hook 🪝',
+		prompts: [
+		  {
+			type: 'input',
+			name: 'name',
+			message: "What's the name of the hook?",
+			validate: function (value) {
+			  let message = true
+			  if (!/.+/.test(value)) {
+				message = console.error('Missing', 'you must define a hook name')
+			  } else if (
+				fs.existsSync(`./hooks/use${value}.js`)
+			  ) {
+				  message = console.error(
+					  ' already exists',
+					  `"${value}" is not valid`,
+				  )
+			  }
+			  return message
+			},
+		  },
+		],
+		actions: [
+			{
+			  type: 'add',
+			  path: 'hooks/use{{pascalCase name}}.js',
+			  templateFile: './generator/hooks/templates/hook.hbs',
+			},
+			{
+                path: 'jsconfig.json',
+                pattern: /(\/\/ INDIVIDUAL HOOKS)/g,
+                template: '\t\t\t"@{{name}}Hook": ["hooks/use{{name}}.js"],\n$1',
                 type: 'modify',
             },
 		  ]

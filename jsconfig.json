@@ -19,6 +19,7 @@
 			"@PlayerComponent": ["components/Player/Player.js"],
 			"@UserProfileComponent": ["components/UserProfile/UserProfile.js"],
 // INDIVIDUAL COMPONENTS
+// INDIVIDUAL HOOKS
 		}
 	}
 }

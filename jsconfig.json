@@ -8,6 +8,9 @@
 			"@lib/*": ["lib/*"],
 			"@styles/*": ["styles/*"],
 // MAIN
+			"@colorReactivity": ["graphql/reactivities/color/colorReactivity.js"],
+			"@playlistReactivity": ["graphql/reactivities/playlist/playlistReactivity.js"],
+			"@songReactivity": ["graphql/reactivities/song/songReactivity.js"],
 // INDIVIDUAL REACTIVITIES
 			"@SidebarComponent": ["components/Sidebar/Sidebar.js"],
 			"@CenterComponent": ["components/Center/Center.js"],

@@ -1,4 +1,4 @@
-import { currentTrackIdState, isPlaying } from "@reactivities/songReactivites";
+import { currentTrackIdState, isPlaying } from "@songReactivity";
 import useSpotify from "@hooks/useSpotify";
 import { millisToMinAndS } from "@lib/time";
 

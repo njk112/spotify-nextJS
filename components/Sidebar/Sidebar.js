@@ -9,7 +9,7 @@ import {
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import useSpotify from "@hooks/useSpotify";
-import { playlistIdState } from "@reactivities/playlistVariables";
+import { playlistIdState } from "@playlistReactivity";
 
 function Sidebar() {
 	const { data: session, status } = useSession();

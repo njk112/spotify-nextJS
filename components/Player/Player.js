@@ -5,7 +5,7 @@ import {
 	isPlaying,
 	currentTrackIdState,
 	changedSong,
-} from "@reactivities/songReactivites";
+} from "@songReactivity";
 import { useQuery } from "@apollo/client";
 import { useCallback, useEffect, useState } from "react";
 import useSongInfo from "@hooks/useSongInfo";

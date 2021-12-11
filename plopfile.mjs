@@ -50,7 +50,7 @@ export default function (plop) {
 			  if (!/.+/.test(value)) {
 				message = console.error('Missing', 'you must define a reactivity name')
 			  } else if (
-				fs.existsSync(`./graphql/reactivities${value}.js`)
+				fs.existsSync(`./graphql/reactivities/${value}.js`)
 			  ) {
 				  message = console.error(
 					  ' already exists',
@@ -64,13 +64,13 @@ export default function (plop) {
 		actions: [
 			{
 			  type: 'add',
-			  path: 'graphql/reactivities/{{pascalCase name}}/{{pascalCase name}}.js',
+			  path: 'graphql/reactivities/{{pascalCase name}}/{{pascalCase name}}Reactivity.js',
 			  templateFile: './generator/reactivities/templates/reactivity.hbs',
 			},
 			{
                 path: 'jsconfig.json',
                 pattern: /(\/\/ INDIVIDUAL REACTIVITIES)/g,
-                template: '\t\t\t"@{{name}}Reactivity": ["graphql/reactivities/{{name}}/{{name}}.js"],\n$1',
+                template: '\t\t\t"@{{name}}Reactivity": ["graphql/reactivities/{{name}}/{{name}}Reactivity.js"],\n$1',
                 type: 'modify',
             },
 		  ]

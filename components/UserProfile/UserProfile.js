@@ -1,10 +1,9 @@
 import { useQuery } from "@apollo/client";
 import { ChevronDownIcon } from "@heroicons/react/outline";
 
-import { useSession } from "next-auth/react";
-import { signOut } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 import { useEffect, useState } from "react";
-import { GET_COLORS } from "@reactivities/colorReactivities";
+import { GET_COLORS } from "@colorReactivity";
 import colorOptions from "@styles/stylingOptions";
 
 function UserProfile() {

@@ -8,12 +8,12 @@ on:
     - main
 
 jobs:
-  prettier:
-    runs-on: ubuntu-latest
+	Continuous Integration:
+		runs-on: ubuntu-latest
 
-    steps:
+		steps:
 		- name: Install dependencies 12
-			run: npm ci
+		run: npm ci
 
 		- name: Run lint 2
-			run: npm run style:all
+		run: npm run style:all

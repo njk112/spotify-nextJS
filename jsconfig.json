@@ -18,6 +18,9 @@
 			"@SongsComponent": ["components/Songs/Songs.js"],
 			"@PlayerComponent": ["components/Player/Player.js"],
 			"@UserProfileComponent": ["components/UserProfile/UserProfile.js"],
+			"@ControlsComponent": ["components/Controls/Controls.js"],
+			"@VolumeComponent": ["components/Volume/Volume.js"],
+			"@SongInfoComponent": ["components/SongInfo/SongInfo.js"],
 // INDIVIDUAL COMPONENTS
 // INDIVIDUAL HOOKS
 		}

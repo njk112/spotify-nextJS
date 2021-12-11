@@ -6,7 +6,9 @@
 			"@reactivities/*": ["graphql/reactivities/*"],
 			"@hooks/*": ["hooks/*"],
 			"@lib/*": ["lib/*"],
-			"@styles/*": ["styles/*"]
+			"@styles/*": ["styles/*"],
+			"@testReactivity": ["graphql/reactivities/test/test.js"],
+// INDIVIDUAL REACTIVITIES
 		}
 	}
 }

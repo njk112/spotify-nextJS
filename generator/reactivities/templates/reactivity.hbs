@@ -1,0 +1,9 @@
+import { makeVar, gql } from "@apollo/client";
+
+export const {{pascalCase name}} = makeVar();
+
+export const GET_{{constantCase name}} = gql`
+	query get{{pascalCase name}} {
+		{{{pascalCase name}}} @client
+	}
+`;

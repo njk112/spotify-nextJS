@@ -12,6 +12,7 @@ function Volume() {
 	const spotifyAPI = useSpotify();
 
 	const [volume, setVolume] = useState(50);
+
 	const deviceInfo = useActiveDevice();
 
 	// eslint-disable-next-line react-hooks/exhaustive-deps

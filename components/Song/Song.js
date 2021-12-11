@@ -9,7 +9,9 @@ function Song({ order, track }) {
 		currentTrackIdState(track.track.id);
 		isPlaying(true);
 		try {
-			spotifyAPI.play({ uris: [track.track.uri] });
+			spotifyAPI.play({
+				uris: [track.track.uri]
+			});
 		} catch (err) {
 			console.log(err);
 		}
@@ -36,7 +38,9 @@ function Song({ order, track }) {
 				</div>
 			</div>
 			<div className="flex items-center justify-between ml-auto md:ml-0">
-				<p className="hidden md:inline w-40 ">{track?.track?.album?.name}</p>
+				<p className="hidden md:inline w-40 ">
+					{track?.track?.album?.name}
+				</p>
 				<p>{millisToMinAndS(track?.track?.duration_ms)}</p>
 			</div>
 		</div>

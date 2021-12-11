@@ -4,7 +4,7 @@ import {
 	GET_SONG,
 	isPlaying,
 	currentTrackIdState,
-	changedSong,
+	changedSong
 } from "@songReactivity";
 import { useQuery } from "@apollo/client";
 import { useCallback, useEffect, useState } from "react";
@@ -17,7 +17,7 @@ import {
 	PlayIcon,
 	FastForwardIcon,
 	VolumeUpIcon,
-	VolumeOffIcon,
+	VolumeOffIcon
 } from "@heroicons/react/solid";
 import { debounce } from "lodash";
 import useActiveDevice from "@hooks/useActiveDevice";
@@ -28,7 +28,7 @@ function Player() {
 	const {
 		currentTrackIdState: currentTrack,
 		isPlaying: playing,
-		changedSong: songHasChanged,
+		changedSong: songHasChanged
 	} = data;
 	const { data: session } = useSession();
 	const songInfo = useSongInfo();
@@ -36,7 +36,7 @@ function Player() {
 
 	const [currentDevice, setCurrentDevice] = useState({
 		devices: [],
-		is_active: false,
+		is_active: false
 	});
 	const [volume, setVolume] = useState(50);
 
@@ -73,6 +73,7 @@ function Player() {
 		}
 	};
 
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	const debounceAdjustVolume = useCallback(
 		debounce((volume) => {
 			try {
@@ -90,7 +91,10 @@ function Player() {
 				try {
 					const currentPlayingTrack =
 						await spotifyAPI.getMyCurrentPlayingTrack();
-					console.log("Now playing: ", currentPlayingTrack?.body?.item);
+					console.log(
+						"Now playing: ",
+						currentPlayingTrack?.body?.item
+					);
 					if (currentPlayingTrack?.body?.item)
 						currentTrackIdState(currentPlayingTrack.body.item.id);
 				} catch (err) {
@@ -98,8 +102,10 @@ function Player() {
 				}
 
 				try {
-					const currentPlaying = await spotifyAPI.getMyCurrentPlaybackState();
-					if (currentPlaying.body?.is_playing === true) isPlaying(true);
+					const currentPlaying =
+						await spotifyAPI.getMyCurrentPlaybackState();
+					if (currentPlaying.body?.is_playing === true)
+						isPlaying(true);
 				} catch (err) {
 					console.log(err);
 				}
@@ -157,9 +163,15 @@ function Player() {
 				<SwitchHorizontalIcon className="button" />
 				<RewindIcon className="button" onClick={handlePrevious} />
 				{playing ? (
-					<PauseIcon className="button w-10 h-10" onClick={handlePlayPause} />
+					<PauseIcon
+						className="button w-10 h-10"
+						onClick={handlePlayPause}
+					/>
 				) : (
-					<PlayIcon className="button w-10 h-10" onClick={handlePlayPause} />
+					<PlayIcon
+						className="button w-10 h-10"
+						onClick={handlePlayPause}
+					/>
 				)}
 				<FastForwardIcon className="button" onClick={handleNext} />
 				<ReplyIcon className="button" />

@@ -1,14 +1,7 @@
 import { InMemoryCache } from "@apollo/client";
-import {
-	playlistIdState,
-	playlistState,
-} from "@playlistReactivity";
+import { playlistIdState, playlistState } from "@playlistReactivity";
 
-import {
-	currentTrackIdState,
-	isPlaying,
-	changedSong,
-} from "@songReactivity";
+import { currentTrackIdState, isPlaying, changedSong } from "@songReactivity";
 
 import { centerTopPartVisible } from "@colorReactivity";
 
@@ -19,34 +12,34 @@ export default new InMemoryCache({
 				playlistIdState: {
 					read() {
 						return playlistIdState();
-					},
+					}
 				},
 				playlistState: {
 					read() {
 						return playlistState();
-					},
+					}
 				},
 				currentTrackIdState: {
 					read() {
 						return currentTrackIdState();
-					},
+					}
 				},
 				isPlaying: {
 					read() {
 						return isPlaying();
-					},
+					}
 				},
 				changedSong: {
 					read() {
 						return changedSong();
-					},
+					}
 				},
 				centerTopPartVisible: {
 					read() {
 						return centerTopPartVisible();
-					},
-				},
-			},
-		},
-	},
+					}
+				}
+			}
+		}
+	}
 });

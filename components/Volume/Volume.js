@@ -2,12 +2,14 @@ import { VolumeUpIcon, VolumeOffIcon } from "@heroicons/react/solid";
 import { debounce } from "lodash";
 import useActiveDevice from "@hooks/useActiveDevice";
 import { useCallback, useEffect, useState } from "react";
+import useSpotify from "@hooks/useSpotify";
 
 function Volume() {
 	const [currentDevice, setCurrentDevice] = useState({
 		devices: [],
 		is_active: false
 	});
+	const spotifyAPI = useSpotify();
 
 	const [volume, setVolume] = useState(50);
 	const deviceInfo = useActiveDevice();

@@ -18,7 +18,9 @@ function useSongInfo() {
 				const trackInfo = await fetch(
 					`https://api.spotify.com/v1/tracks/${currentTrack}`,
 					{
-						headers: { Authorization: `Bearer ${spotifyAPI.getAccessToken()}` },
+						headers: {
+							Authorization: `Bearer ${spotifyAPI.getAccessToken()}`
+						}
 					}
 				).then((res) => res.json());
 

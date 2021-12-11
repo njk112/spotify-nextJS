@@ -1,10 +1,7 @@
 import { useEffect, useState } from "react";
 import { shuffle } from "lodash";
 import { useQuery } from "@apollo/client";
-import {
-	GET_PLAYLIST_ID,
-	playlistState,
-} from "@playlistReactivity";
+import { GET_PLAYLIST_ID, playlistState } from "@playlistReactivity";
 import useSpotify from "@hooks/useSpotify";
 import Songs from "@SongsComponent";
 import UserProfile from "@UserProfileComponent";
@@ -18,14 +15,15 @@ const colorArr = [
 	"from-red-500",
 	"from-yellow-500",
 	"from-pink-500",
-	"from-purple-500",
+	"from-purple-500"
 ];
 
 function Center() {
 	const spotifyAPI = useSpotify();
 	const [color, setColor] = useState(null);
 	const { data } = useQuery(GET_PLAYLIST_ID);
-	const { playlistIdState: playListId, playlistState: currentPlaylist } = data;
+	const { playlistIdState: playListId, playlistState: currentPlaylist } =
+		data;
 	const { ref, inView } = useInView({});
 
 	useEffect(() => {

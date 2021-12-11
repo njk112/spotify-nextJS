@@ -4,7 +4,7 @@ import {
 	LibraryIcon,
 	PlusCircleIcon,
 	HeartIcon,
-	RssIcon,
+	RssIcon
 } from "@heroicons/react/outline";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";

@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { GET_PLAYLIST_ID } from "@reactivities/playlistVariables";
-import Song from "./Song";
+import Song from "@SongComponent";
 function Songs() {
 	const { data } = useQuery(GET_PLAYLIST_ID);
 	const { playlistState: currentPlaylist } = data;

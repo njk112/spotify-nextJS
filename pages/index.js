@@ -1,7 +1,7 @@
-import Sidebar from "@components/Sidebar";
-import Center from "@components/Center";
+import Sidebar from "@SidebarComponent";
+import Center from "@CenterComponent";
 import { getSession } from "next-auth/react";
-import Player from "@components/Player";
+import Player from "@PlayerComponent";
 
 export default function Home() {
 	return (

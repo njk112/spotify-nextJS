@@ -6,8 +6,8 @@ import {
 	playlistState,
 } from "@reactivities/playlistVariables";
 import useSpotify from "@hooks/useSpotify";
-import Songs from "./Songs";
-import UserProfile from "./UserProfile";
+import Songs from "@SongsComponent";
+import UserProfile from "@UserProfileComponent";
 const colorArr = [
 	"from-indigo-500",
 	"from-blue-500",

@@ -7,8 +7,15 @@
 			"@hooks/*": ["hooks/*"],
 			"@lib/*": ["lib/*"],
 			"@styles/*": ["styles/*"],
-			"@testReactivity": ["graphql/reactivities/test/test.js"],
+// MAIN
 // INDIVIDUAL REACTIVITIES
+			"@SidebarComponent": ["components/Sidebar/Sidebar.js"],
+			"@CenterComponent": ["components/Center/Center.js"],
+			"@SongComponent": ["components/Song/Song.js"],
+			"@SongsComponent": ["components/Songs/Songs.js"],
+			"@PlayerComponent": ["components/Player/Player.js"],
+			"@UserProfileComponent": ["components/UserProfile/UserProfile.js"],
+// INDIVIDUAL COMPONENTS
 		}
 	}
 }

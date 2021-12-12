@@ -42,6 +42,7 @@ function SongInfo() {
 			fetchCurrentsong();
 		}
 	}, [currentTrack, spotifyAPI, session, songInfo]);
+
 	return (
 		<div className="flex items-center space-x-4">
 			{/* eslint-disable-next-line @next/next/no-img-element */}

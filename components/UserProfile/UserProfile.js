@@ -14,7 +14,6 @@ function UserProfile() {
 	const [colors, setColors] = useState(colorOptions.default);
 
 	useEffect(() => {
-		console.log(colorOptions);
 		if (!centerTopPartVisible) {
 			setColors(colorOptions.onChange);
 		} else {

@@ -12,8 +12,6 @@ function useSongInfo() {
 
 	useEffect(() => {
 		async function fetchSongInfo() {
-			console.log("inside songInfo hook");
-			console.log(currentTrack);
 			if (currentTrack) {
 				const trackInfo = await fetch(
 					`https://api.spotify.com/v1/tracks/${currentTrack}`,

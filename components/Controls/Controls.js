@@ -7,18 +7,19 @@ import {
 	FastForwardIcon
 } from "@heroicons/react/solid";
 import { useQuery } from "@apollo/client";
-import { GET_SONG, isPlaying, changedSong } from "@songReactivity";
+import { GET_SONG, isPlaying, currentTrackIdState } from "@songReactivity";
+
+import { GET_PLAYLIST_ID } from "@playlistReactivity";
 import useSpotify from "@hooks/useSpotify";
 
 function Controls() {
-	const { data } = useQuery(GET_SONG);
 	const spotifyAPI = useSpotify();
 
-	const {
-		currentTrackIdState: currentTrack,
-		isPlaying: playing,
-		changedSong: songHasChanged
-	} = data;
+	const { data } = useQuery(GET_SONG);
+	const { isPlaying: playing, currentTrackIdState: currentSong } = data;
+
+	const { data: playListData } = useQuery(GET_PLAYLIST_ID);
+	const { playlistState: currentPlaylist } = playListData;
 
 	const handlePlayPause = async () => {
 		try {
@@ -35,28 +36,36 @@ function Controls() {
 		}
 	};
 
-	const handleNext = async () => {
-		try {
-			await spotifyAPI.skipToNext();
-			changedSong(!songHasChanged);
-		} catch (err) {
-			console.error(err);
-		}
-	};
+	const handlePreviousNext = async (value) => {
+		const currentlyPlaying = currentPlaylist?.tracks?.items?.findIndex(
+			(track) => track.track?.id === currentSong
+		);
 
-	const handlePrevious = async () => {
-		try {
-			spotifyAPI.skipToPrevious();
-			changedSong(!songHasChanged);
-		} catch (err) {
-			console.error(err);
+		if (currentlyPlaying === -1) {
+			if (value < 0) await spotifyAPI.skipToPrevious();
+			else await spotifyAPI.skipToNext();
+		} else {
+			try {
+				const nextTrack =
+					currentPlaylist?.tracks?.items[currentlyPlaying + value]
+						?.track;
+				spotifyAPI.play({
+					uris: [nextTrack.uri]
+				});
+				currentTrackIdState(nextTrack.id);
+			} catch (err) {
+				console.error(err);
+			}
 		}
 	};
 
 	return (
 		<div className="flex items-center justify-evenly">
 			<SwitchHorizontalIcon className="button" />
-			<RewindIcon className="button" onClick={handlePrevious} />
+			<RewindIcon
+				className="button"
+				onClick={() => handlePreviousNext(-1)}
+			/>
 			{playing ? (
 				<PauseIcon
 					className="button w-10 h-10"
@@ -68,7 +77,10 @@ function Controls() {
 					onClick={handlePlayPause}
 				/>
 			)}
-			<FastForwardIcon className="button" onClick={handleNext} />
+			<FastForwardIcon
+				className="button"
+				onClick={() => handlePreviousNext(1)}
+			/>
 			<ReplyIcon className="button" />
 		</div>
 	);
